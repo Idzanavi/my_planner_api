@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: My Planner
+  version: 1.0.0
+  description: Manage Planner items and additional features
+paths:
+  /api/token:
+    post:
+      summary: Get access tokens
+      tags:
+        - login
+      description: Get authorization tokens to access the application
+      operationId: token
+      parameters:
+        - name: username
+          in: body
+          required: true
+          description: The username of user
+          schema:
+            type: string
+          example: user1
+        - name: password
+          in: body
+          required: true
+          description: The password of user
+          schema:
+            type: string
+          example: 12345
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              example:
+                refresh: eyJh...
+                access: eyJh...
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              example:
+                username: The field is required
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              example:
+                detail: No active accound found with the given credentials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              - name: username
+                type: string
+              - name: password
+                type: string
+components: {}
